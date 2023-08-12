@@ -1,0 +1,43 @@
+.main_container{
+    background-image: url("images/Background4.jpg");
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;    
+    background-position-y: center;
+    
+}
+
+.main_left_container{
+    width: 50vw;
+    padding-top: 2rem;
+    position: relative;
+}
+
+.main_left_container h1{
+    color: white;
+    text-shadow: 0 0 2px #000000;
+    font-size: 4rem;
+    margin-bottom: 5%;
+}
+
+.main_left_container h3{
+    color: white;
+    text-shadow: 0 0 2px #000000;
+    font-size: 1.4rem;
+    margin-bottom: 4%;
+}
+
+.main_left_container .left_paragraph{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3%;
+}
+
+.left_paragraph p{
+    color: white;
+    text-shadow: 0 0 1px #000000;
+    font-size: 1.1rem;
+    width: 23rem;
+    text-align:left
+}
