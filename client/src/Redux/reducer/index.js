@@ -18,7 +18,7 @@ const rootReducer = (state = initialState, action) => {
         case "GET_ALL_DOGS":
             action.payload.forEach(element => {
                 if (!element.temperaments[0]) {
-                    element.temperaments[0] = "no-temperaments" // sacar arrays vacios de temperaments
+                    element.temperaments[0] = "no-temperaments" 
                 }
             });
             return {
@@ -28,7 +28,7 @@ const rootReducer = (state = initialState, action) => {
             };
         
         case "GET_TEMPERAMENTS":
-            const filteresTemp = action.payload.filter((temp) => temp.name !== "" );  // sacar strings vacios
+            const filteresTemp = action.payload.filter((temp) => temp.name !== "" ); 
             return {
                 ...state,
                 temperaments: filteresTemp,
@@ -103,7 +103,7 @@ const rootReducer = (state = initialState, action) => {
            };
         case "SHOW_DOG_DETAILS":
             let myDetails = action.payload
-            if (!myDetails[0].temperaments[0]) { //agregamos "no-temperaments" a arreglos sin elementos dentro
+            if (!myDetails[0].temperaments[0]) {
               myDetails[0].temperaments[0] = "no-temperaments"
             }
             return {
