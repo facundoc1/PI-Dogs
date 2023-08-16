@@ -1,5 +1,5 @@
 import React from "react";
-import { useState} from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Card from "../Card/Card";
@@ -7,10 +7,9 @@ import Pagination from "../Pagination/Pagination";
 import FilterBar from "../FilterBar/FilterBar";
 import SearchBar from "../SearchBar/SearchBar";
 import style from "../Home/Home.module.css";
-import logo from "./logo.png"
+import logo from "./logo.png";
 
 function Home() {
-
     const allDogs = useSelector((state) => state.dogs);
     const [currentPage, setCurrentPage] = useState(1);
     const [dogsPerPage] = useState(8);
@@ -18,9 +17,8 @@ function Home() {
     const indexOfFirstDog = indexOfLastDog - dogsPerPage;
     const currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog);
     const pagination = (pageNumber) => {
-      setCurrentPage(pageNumber);
+        setCurrentPage(pageNumber);
     };
-    
 
     return (
         <>
@@ -35,41 +33,35 @@ function Home() {
                         <SearchBar />
                     </div>
                     <div className={`${style.filter}`}>
-                       <FilterBar />
+                        <FilterBar />
                     </div>
                 </div>
                 <div className={`${style.create}`}>
                     <Link to="/dog">
                         <button className={`${style.button_add_dog}`}>
-                            CREATE DOG
+                            Create dog
                         </button>
                     </Link>
                 </div>
             </header>
 
-            <div className={style.main_container}>
-                <div className={style.container_cards}>
+            <div className={style.container}>
+                <div className={style.cards}>
                     {currentDogs?.map((el) => {
                         return (
-                            <div
-                                className={`${style.container_card}`}
+                            <Card
                                 key={el.id}
-                            >
-                                <Link to={"/dog-detail/" + el.id}>
-                                    {
-                                        <Card
-                                            key={el.id}
-                                            image={el.image}
-                                            name={el.name}
-                                            temperaments={
-                                                el.temperaments && el.temperaments[0]?.name
-                                                  ? el.temperaments.map((temp) => temp.name)
-                                                  : el.temperaments
-                                              }
-                                        />
-                                    }
-                                </Link>
-                            </div>
+                                id={el.id}
+                                image={el.image}
+                                name={el.name}
+                                temperaments={
+                                    el.temperaments && el.temperaments[0]?.name
+                                        ? el.temperaments.map(
+                                              (temp) => temp.name
+                                          )
+                                        : el.temperaments
+                                }
+                            />
                         );
                     })}
                 </div>

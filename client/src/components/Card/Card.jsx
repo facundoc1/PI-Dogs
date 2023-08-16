@@ -1,19 +1,24 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import style from "../Card/Card.module.css";
 
-export default function Card({ image, name, temperaments }) {
-  return (
-    <div className={style.main_container}>
-      <div className={style.image_container}>
-        <img className={style.img} src={`${image}`} alt={`imagen de: ${name}`}/>
-      </div>
-      <h2>{name}</h2>
-      <div className={`${style.temperaments_container}`}>
-        {
-        temperaments.map((temps) => <h3 key={temps+Math.random}>{temps}</h3>)
-        }
-      </div>
-      
-    </div>
-  );
+export default function Card({ image, name, temperaments, id }) {
+    return (
+      <Link className={style.link} to={"/dog-detail/" + id}>
+        <div className={style.card}>
+            <div className={style.image}>
+                <img src={image} alt={name} />
+            </div>
+            <div className={style.breed}>
+                <p title={name}>{name}</p>
+            </div>
+            <p className={style.text}>Temperaments:</p>
+            <div className={`${style.temperaments}`}>
+                {temperaments.map((temps) => (
+                    <p key={temps + Math.random}>{temps}</p>
+                ))}
+            </div>
+        </div>
+      </Link>
+    );
 }

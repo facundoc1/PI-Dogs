@@ -27,7 +27,7 @@ export default function SearchBar() {
           value={dogState}
           onChange={(e) => setDogsState(e.target.value)}
         />
-        <button type="submit" onClick={handleClick} className={style.button}>search</button>
+        <button type="submit" onClick={handleClick} className={style.button}>Search</button>
       </div>
     );
   }
