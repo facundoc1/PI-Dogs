@@ -1,5 +1,4 @@
 import axios from "axios";
-const urlMyApi = "http://localhost:3001";
 
 export function getAllDogs() {
   return async function (dispatch) {
@@ -11,15 +10,16 @@ export function getAllDogs() {
   };
 }
 
-export function getTemperaments() {
-  return async function (dispatch) {
-    var json = await axios.get( "/temperament");
-    return dispatch({
-      type: "GET_TEMPERAMENTS",
-      payload: json.data,
-    });
-  };
-}
+export const getTemperaments = () => async (dispatch) => {
+    try {
+        const response = await axios.get('/temperament');
+        const temperaments = response.data;
+        dispatch({ type: "GET_TEMPERAMENTS", payload: temperaments });
+    } catch (error) {
+        console.error('Error getting temperaments:', error);
+        throw error;
+    }
+};
 
 export function FilterByTemperament(payload) {
   return {
@@ -49,12 +49,22 @@ export function OrderByName(payload) {
   };
 }
 
-export function OrderByWeight(payload) {
-  return {
-    type: "ORDER_BY_WEIGHT",
-    payload,
+export function OrderByWeight(order) {
+  return async function(dispatch) {
+    try {
+      const response = await axios.get(`/dogs/orderByWeight/${order}`);
+      const sortedDogsByWeight = response.data;
+      dispatch({ type: "ORDER_BY_WEIGHT", payload: sortedDogsByWeight });
+    } catch (error) {
+      console.error("Error al ordenar por peso:", error);
+    }
   };
 }
+
+export const filterCreated = (source) => ({
+  type: "FILTER_CREATED",
+  payload: source,
+});
 
 export function showDogDetails(id) {
   return async function (dispatch) {

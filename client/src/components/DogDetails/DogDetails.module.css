@@ -10,7 +10,7 @@
   
   .sub_container{
       width: 105%;
-      border: 0.5rem solid #25b687;
+      border: 0.5rem solid #9c4e00;
       border-radius: 15px;
   
       box-shadow: 14px 15px 3px -4px rgba(0,0,0,0.75);
@@ -22,16 +22,9 @@
       text-align: left;
       left: 25%;
       top: 25%;
-      color: #575025;
-      background-color: #25b687;
+      color: #000000;
+      background-color: #9c4e00;
       padding: 1rem 0 1rem 1rem;
-  }
-  
-  button{ 
-      cursor: pointer; 
-      border: none;
-      position: relative;
-      border-radius: 5px;
   }
   
   .button_home{
@@ -43,36 +36,17 @@
   
       font-size: 1.1rem; 
       background: none;
-      padding: 0.65rem 0.6rem;
-      transition: color 0.5s linear;
-      z-index: 100;
-      border: 0.1rem solid white;
-      outline: 0.1rem solid #25b687;
-      text-shadow: 0 0 3px #25b687;
-      color: #25b687;
+      border: 0.1rem solid #9c4e00;
+      border-radius: 15px;
+      border: 1px solid #000000;
+      background: #9c4e00;
+      box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.6);
   }
   
   .button_home:hover{
       color: white;
   }
   
-  .button_home::before,
-  .button_home::after{
-      content: "";
-      display: block;
-      top: 0;
-      left: 0;
-      position: absolute;
-      background-color: #25b687;
-      height: 100%;
-      width: 100%;
-      transition: transform 0.5s linear;
-      z-index: -10;
-  }
-  
-  .button_home::before{ transform: rotateY(90deg); }
-  
-  .button_home::after{ transform: rotateX(90deg); }
   
   .button_home:hover::before,
   .button_home:hover::after{ 

@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getTemperaments, postDog } from "../../Redux/actions/index.js";
+import { getTemperaments, postDog } from "../../redux/actions";
 
 import style from "../FormAddDog/FormAddDog.module.css";
 
@@ -66,26 +66,31 @@ export default function FormAddDog() {
         else setButton(true);
     }, [form, setButton]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(postDog(form));
-        alert("The new dog was added successfully");
-        setForm({
-            name: "",
-            min_height: "",
-            max_height: "",
-            min_weight: "",
-            max_weight: "",
-            life_span: "",
-            image: "",
-            temperaments: [],
-        });
+        try {
+            await dispatch(postDog(form));
+            alert("The new dog was added successfully");
+            setForm({
+                name: "",
+                min_height: "",
+                max_height: "",
+                min_weight: "",
+                max_weight: "",
+                life_span: "",
+                image: "",
+                temperaments: [],
+            });
+        } catch (error) {
+            alert("Error adding dog: " + error.message);
+            console.error("Error adding dog:", error);
+        }
     };
 
     const handleChange = (e) => {
         setForm({
             ...form,
-            [e.target.name]: e.target.value, //el valor del atributo modificado del estado en el form se actualizara con lo escrito en dicho campo
+            [e.target.name]: e.target.value, //el valor del atributo modificado del estado en el form se actualizara con lo escrito
         });
         setErrors(
             validate({
@@ -133,8 +138,8 @@ export default function FormAddDog() {
                     </div>
                     <div className={style.error_form}>
                         {errors.name && <p>{errors.name}</p>}
-                    </div>{" "}
-                    {/*mesaje ed error de nombre*/}
+                    </div>
+
                     <div className={style.height_container}>
                         <div className={style.min_height}>
                             <input
@@ -159,8 +164,7 @@ export default function FormAddDog() {
                     <div className={style.error_form}>
                         {errors.height && <p>{errors.height}</p>}
                     </div>
-                    {/* espacio para agregar error */}
-                    {/* espacio para agregar error */}
+
                     <div className={style.weight_container}>
                         <div className={style.min_weight}>
                             <input
@@ -185,7 +189,7 @@ export default function FormAddDog() {
                     <div className={style.error_form}>
                         {errors.weight && <p>{errors.weight}</p>}
                     </div>
-                    {/* espacio para agregar error */}
+
                     <div className="life-span-container">
                         <input
                             type="text"
@@ -199,7 +203,7 @@ export default function FormAddDog() {
                     <div className={style.error_form}>
                         {errors.life_span && <p>{errors.life_span}</p>}
                     </div>
-                    {/* espacio para agregar error */}
+                    
                     <div className="image-container">
                         <input
                             type="text"
@@ -210,17 +214,17 @@ export default function FormAddDog() {
                             onChange={(e) => handleChange(e)}
                         />
                     </div>
+
                     <div className={""}>
                         <h3>Select Temperaments</h3>
                     </div>
+
                     <div className={""}>
                         <select
                             className={style.select_temperaments}
                             onChange={handleSelect}
                         >
-                            <option disabled defaultValue>
-                                Temperaments
-                            </option>
+                            <option defaultValue>Temperaments</option>
                             {temperaments.map((d) => (
                                 <option
                                     value={d.name}
@@ -228,10 +232,11 @@ export default function FormAddDog() {
                                     className={style.option_temperament}
                                 >
                                     {d.name}
-                                </option> //key de elementos de temperamentos, eliminar el repetido reserved
+                                </option> 
                             ))}
                         </select>
                     </div>
+
                     <div className={style.container_button_add_dog}>
                         <button
                             className={style.button_add_dog}

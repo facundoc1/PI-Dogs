@@ -8,7 +8,7 @@ const GET_FILTER_TEMPERAMENTS = "GET_FILTER_TEMPERAMENTS";
 const GET_BREED = "GET_BREED";
 // eslint-disable-next-line
 const ORDER_BY_NAME = "ORDER_BY_NAME";
-// eslint-disable-next-line
+
 const ORDER_BY_WEIGHT = "ORDER_BY_WEIGHT";
 
 

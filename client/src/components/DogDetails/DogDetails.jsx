@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { showDogDetails } from "../../Redux/actions/index.js";
+import { showDogDetails } from "../../redux/actions/index.js";
 import { Link } from "react-router-dom";
 import style from "../DogDetails/DogDetails.module.css";
 

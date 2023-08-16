@@ -1,37 +1,33 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getBreed } from "../../Redux/actions/index.js";
+import { getBreed } from "../../redux/actions/index.js";
 import style from "../SearchBar/SearchBar.module.css";
 
 export default function SearchBar() {
+    const [dogState, setDogsState] = useState("");
     const dispatch = useDispatch();
-    const [searchDog, setSearchDog] = useState("");
-
-    const handleInput = (e) => {
-        e.preventDefault();
-        setSearchDog(e.target.value);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        dispatch(getBreed(searchDog));
-    };
-
+  
+    function handleClick(e) {
+      e.preventDefault();
+      
+      if (dogState.length === 0) {
+        return alert("Please type a name to start the search");
+      } else {
+        dispatch(getBreed(dogState));
+        setDogsState("");
+      }
+    }
+  
     return (
-        <div className={style.searchbar_container}>
-            <input
-                className={`${style.searchbar}`}
-                type="text"
-                onChange={handleInput}
-                placeholder="Search..."
-            />
-            <button
-                className={`${style.searchbar_button}`}
-                type="submit"
-                onClick={handleSubmit}
-            >
-                <i className="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </div>
+      <div className={style.searchBarObject}>
+        <input
+          type="text"
+          placeholder="Search a dog..."
+          className={style.input}
+          value={dogState}
+          onChange={(e) => setDogsState(e.target.value)}
+        />
+        <button type="submit" onClick={handleClick} className={style.button}>search</button>
+      </div>
     );
-}
+  }
