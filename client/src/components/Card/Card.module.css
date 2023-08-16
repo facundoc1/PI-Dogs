@@ -1,63 +1,54 @@
-a{
+.card {
+    cursor: pointer;
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 24px;
     text-decoration: none;
-    
-}
-
-.main_container{
-    font-size: 0.7rem;
-    text-decoration: none;
-    max-height: 50vh;
-    overflow: hidden;
-    color: #000000;
+    transition: all 0.2s;
     position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 250px;
 }
 
-.main_container:hover{
- 
-}
-
-.main_container::before{
-    content: "";
-    position: absolute;
-}
-
-.main_container:hover::before{
-    content: "Details";
-    height: 100%;
-    width: 100%;
+.card p.text {
+    margin: 0;
     text-align: center;
-    border-radius: 10px;
-    font-size: 2.2rem;
-    left: 0%;
-    background-color: rgba(153, 153, 153, 0.5);
+    text-decoration: underline;
+    font-weight: bold;
 }
 
-.image_container{
-    height: 29vh;
-    border-radius: 7px;
+.card:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
-.image_container img{
+.image {
     width: 100%;
+    height: 200px;
+}
+
+.image > img {
     height: 100%;
+    width: 100%;
     object-fit: cover;
+    border-radius: 15px;
 }
 
-.img{
-    
+.breed {
+    font-size: 1.4rem;
+    font-weight: bold;
+    padding: 10px 0;
+    margin: 0;
 }
 
-.main_container h2{
-    color: white;
+.breed p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
 }
 
-.temperaments_container{ 
-    text-decoration: none;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 0 0.7rem;
-}
-
-.temperaments_container h3{
-    margin: 0 0.3rem 0.4rem 0.3rem;
+.temperaments {
+    font-size: 1rem;
+    height: 150px;
+    overflow: auto;
 }

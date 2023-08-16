@@ -1,15 +1,21 @@
+.searchBarObject {
+    margin-bottom: 10px;
+}
+
 .input {
     border-radius: 15px;
-    margin: 10px;
-    line-height: 2.05;
     border-color: #9c4e00;
+    padding: 5px 20px;
+    margin-right: 5px;
 }
 
 .button {
+    color: #fff;
     font-size: 15px;
     max-width: 370px;
     border: 0.1rem solid #9c4e00;
     border-radius: 15px;
     background: #9c4e00;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.6);
+    padding: 5px 10px;
 }
