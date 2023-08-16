@@ -1,43 +1,61 @@
-.main_container{
-    background-image: url("images/Background4.jpg");
-    height: 100vh;
-    background-repeat: no-repeat;
-    background-size: cover;    
-    background-position-y: center;
-    
-}
-
-.main_left_container{
-    width: 50vw;
-    padding-top: 2rem;
-    position: relative;
-}
-
-.main_left_container h1{
-    color: white;
-    text-shadow: 0 0 2px #000000;
-    font-size: 4rem;
-    margin-bottom: 5%;
-}
-
-.main_left_container h3{
-    color: white;
-    text-shadow: 0 0 2px #000000;
-    font-size: 1.4rem;
-    margin-bottom: 4%;
-}
-
-.main_left_container .left_paragraph{
-  align-items: center;
+.hero {
   display: flex;
+  flex-direction: column;
+  width: 100vw;
+  min-height: 100vh;
   justify-content: center;
-  margin-bottom: 3%;
+  align-items: center;
+  text-align: center;
+  background-image: linear-gradient(
+    15deg,
+    rgba(156, 78, 0, 0.808),
+    rgba(156, 78, 0, 0.711)
+  );
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.title{
+  font-size: 45px;
 }
 
-.left_paragraph p{
-    color: white;
-    text-shadow: 0 0 1px #000000;
-    font-size: 1.1rem;
-    width: 23rem;
-    text-align:left
-}
+.bubblyButton {
+    display: inline-block;
+    font-size: 2em;
+    padding: .5em .5em;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #9c4e00;
+    color: #fff;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+  }
+  .bubblyButton:focus {
+    outline: 0;
+  }
+  .bubblyButton:before, .bubblyButton:after {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 140%;
+    height: 100%;
+    left: -20%;
+    z-index: -1000;
+    transition: all ease-in-out 0.5s;
+    background-repeat: no-repeat;
+  }
+    .bubblyButton:active {
+    transform: scale(0.9);
+    background-color: #717171;
+    box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
+  }
+  .bubblyButton.animate:before {
+    display: block;
+    animation: topBubbles ease-in-out 0.75s forwards;
+  }

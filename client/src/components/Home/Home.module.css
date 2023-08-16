@@ -1,3 +1,9 @@
+body {
+  
+    background-image: url("Images/Background4.jpg");
+    background-size: 500px;
+}
+
 button{ 
     cursor: pointer; 
     border: none;
@@ -5,61 +11,72 @@ button{
 }
 
 .header{
+    padding: 10px 20px;
     display: flex;
-    flex-direction: row;
-    justify-content:space-between;
-    background: none;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #fff;
+    position: sticky;top: 0;
+    z-index: 1; 
+   
 }
 
-.logo{
-    float: left;
-    color: rgb(8, 8, 8);
+.header .logo >a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.header .logo img{
+    width: 100px;
     height: 100%;
-    width: 125px;
-    margin: 0.3rem 0;
-    background-image: url("./logo.jpg");
-    background-size: cover;
-    border-radius: 4px;
 }
 
-.header_container_left{
+.header .search_filter {
+    
+
+}
+
+.header .search_filter .search {
+   
+
+}
+
+.header .search_filter .filter select{
+    padding: 0.5rem 0.9rem;
+    border: none;      
+    background-color: #9c4e00;
+    color: white;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.6)
+    
+}
+
+.header .search_filter .filter select:first-child{
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    
+    
+}
+
+.header .search_filter .filter select:last-child{
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    
+}
+
+.header .create {
+
+}
+
+
+.header_content{
     margin: 0 6%;
     padding-bottom: 0.5rem;
     display: block;
-}
-
-.header_left{
-    padding-top: 0.6rem;
-}
-
-.container_filters{
-    width: 190%;
-    margin-top: 1.3rem;
-    border-radius: 25px;
-}
-
-.container_filters select{
-    padding: 0.5rem 0.9rem;
-    border: none;
-    box-shadow: 5px 5px 5px 0.5px rgba(0,0,0,0.4);
-    background-color: #25b687;
-    color: white;
-
-    cursor: pointer;
-}
-
-.container_filters select:first-child{
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
-}
-
-.container_filters select:last-child{
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
-}
-
-.header_right{
-    margin: 0.5rem 6%;
+    
+    
 }
 
 .button_add_dog{
@@ -68,38 +85,13 @@ button{
     font-size: 0.9rem; 
     background: none;
     padding: 0.6rem 0.6rem;
-    transition: color 0.5s linear;
     z-index: 100;
-    border: 0.1rem solid #25b687;
-    outline: 0.1rem solid #25b687;
-    text-shadow: 0 0 3px #25b687;
-    background: #25b687;
-
-    box-shadow: 5px 3px 5px 0.5px rgba(0,0,0,0.6);
-}
-
-.button_add_dog:hover{ color: #25b687; }
-
-.button_add_dog::before,
-.button_add_dog::after{
-    content: "";
-    display: block;
-    top: 0;
-    left: 0;
-    position: absolute;
-    background-color: white;
-    height: 100%;
-    width: 100%;
-    transition: transform 0.5s linear;
-    z-index: -10;
-}
-
-.button_add_dog::before{ transform: rotateY(90deg); }
-.button_add_dog::after { transform: rotateX(90deg); }
-
-.button_add_dog:hover::before,
-.button_add_dog:hover::after{
-    transform: rotate(0);
+    border: 0.1rem solid #9c4e00;
+    border-radius: 15px;
+    outline: 0.1rem solid #9c4e00;
+    text-shadow: 0 0 3px #9c4e00;
+    background: #9c4e00;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.6);
 }
 
 .main_container{
@@ -115,7 +107,7 @@ button{
 }
 
 .container_card{ 
-    background-color: #25b687;
+    background-color: #9c4e00;
     width: 92.5%;
     border-radius: 15px;
     overflow: hidden;

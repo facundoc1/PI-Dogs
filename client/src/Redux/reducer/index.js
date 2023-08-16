@@ -1,11 +1,3 @@
-// import {
-//     GET_ALL_DOGS,
-//     GET_TEMPERAMENTS,
-//     GET_BREED,
-//     ORDER_BY_NAME,
-//     ORDER_BY_WEIGHT,
-// } from "../types/index";
-
 const initialState = {
     dogs: [],
     temperaments: [],
@@ -57,50 +49,31 @@ const rootReducer = (state = initialState, action) => {
                 dogs: action.payload,
             };
         case "ORDER_BY_NAME":
-            const sortedName =
-            action.payload === "A-Z"
-            ? state.allDogs.sort((a, b) => {
-                if (a.name > b.name) {
-                    return -1;
+                let sortedDogsByName = [...state.dogs];
+                if (action.payload === "A-Z") {
+                  sortedDogsByName.sort((a, b) => a.name.localeCompare(b.name));
+                } else if (action.payload === "Z-A") {
+                  sortedDogsByName.sort((a, b) => b.name.localeCompare(a.name));
                 }
-                return 0;
-            })
-            : state.allDogs.sort((a, b) => {
-                if (a.name > b.name) {
-                    return -1;
-                }
-                if (b.name > a.name) {
-                    return 1;
-                }
-                return 0;
-                });
-            return {
-                ...state,
-                dogs: sortedName,
-            };
-
+                return {
+                  ...state,
+                  dogs: sortedDogsByName,
+                };
+          
         case "ORDER_BY_WEIGHT":
-            const sortedWeight =
-            action.payload === "min_weight"
-             ? state.allDogs.sort((a, b) => {
-                if (parseInt(a.weight[1]) > parseInt(b.weight[1])){
-                    return 1;
-                }
-                if (parseInt(b.weight[1]) > parseInt(a.weight[1])) {
-                    return -1;
-                }
-                return 0;
-             })
-             : state.allDogs.sort((a, b) => {
-                if (parseInt(a.weight[1]) > parseInt(b.weight[1])) {
-                    return 1;
-                }
-                return 0;
-            });
-          return {
-            ...state,
-            dogs: sortedWeight,
-           };
+                return {
+        ...state,
+        dogs: action.payload,
+      };
+      case 'FILTER_CREATED':
+    const createdFilter = action.payload === 'created' ?
+        state.allDogs.filter(el => el.createdInDB) : // Filtrar los perros creados en la DB
+        state.allDogs.filter(el => !el.createdInDB); // Filtrar los perros NO creados en la DB
+    return {
+        ...state,
+        dogs: createdFilter, // Actualizar el estado 'dogs' con el filtro aplicado
+    };
+
         case "SHOW_DOG_DETAILS":
             let myDetails = action.payload
             if (!myDetails[0].temperaments[0]) {

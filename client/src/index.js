@@ -5,9 +5,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from "axios";
 import { Provider } from "react-redux";
-import store from "../src/Redux/store/index.js";
-import dotenv from "dotenv"
-dotenv.config();
+import store from "../src/redux/store/index.js";
+
+if (module.hot) {
+  module.hot.decline();
+}
 
 axios.defaults.baseURL = process.env.React_APP_API || "http://localhost:3001";
 
