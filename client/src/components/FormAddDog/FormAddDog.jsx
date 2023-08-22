@@ -6,27 +6,28 @@ import { getTemperaments, postDog } from "../../redux/actions";
 
 import style from "../FormAddDog/FormAddDog.module.css";
 
-const validate = (form) => {
-    let errors = {};
-    if (!form.name) {
-        errors.name = "Name is required, it should not contain numbers";
-    }
-    if (!form.min_height || !form.max_height) {
-        errors.height = "Height is required";
-    }
-    if (!form.min_weight || !form.max_weight) {
-        errors.weight = "Weight is required";
-    }
-    if (!form.life_span) {
-        errors.life_span =
-            "Lifespan is required, type only numbers separated by a dash (-)";
-    }
-    return errors;
-};
+
 
 export default function FormAddDog() {
     const dispatch = useDispatch();
     const temperaments = useSelector((state) => state.temperaments);
+    const validate = (form) => {
+        let errors = {};
+        if (!form.name) {
+            errors.name = "Name is required, it should not contain numbers";
+        }
+        if (!form.min_height || !form.max_height) {
+            errors.height = "Height is required";
+        }
+        if (!form.min_weight || !form.max_weight) {
+            errors.weight = "Weight is required";
+        }
+        if (!form.life_span) {
+            errors.life_span =
+                "Lifespan is required, type only numbers separated by a dash (-)";
+        }
+        return errors;
+    };
 
     const [button, setButton] = useState(true);
     const [errors, setErrors] = useState({
@@ -66,45 +67,63 @@ export default function FormAddDog() {
         else setButton(true);
     }, [form, setButton]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await dispatch(postDog(form));
-            alert("The new dog was added successfully");
-            setForm({
-                name: "",
-                min_height: "",
-                max_height: "",
-                min_weight: "",
-                max_weight: "",
-                life_span: "",
-                image: "",
-                temperaments: [],
-            });
-        } catch (error) {
-            alert("Error adding dog: " + error.message);
-            console.error("Error adding dog:", error);
-        }
-    };
+   const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const handleChange = (e) => {
+    if (parseInt(form.min_weight) > parseInt(form.max_weight)) {
+        alert("Minimum weight cannot be greater than maximum weight");
+        return;
+    }
+
+    if (parseInt(form.min_height) > parseInt(form.max_height)) {
+        alert("Minimum height cannot be greater than maximum height");
+        return;
+    }
+    if (form.temperaments.length === 0) { 
+        alert("At least one temperament must be selected");
+        return;
+      }
+
+    try {
+        await dispatch(postDog(form));
+        alert("The new dog was added successfully");
         setForm({
-            ...form,
-            [e.target.name]: e.target.value, //el valor del atributo modificado del estado en el form se actualizara con lo escrito
+            name: "",
+            min_height: "",
+            max_height: "",
+            min_weight: "",
+            max_weight: "",
+            life_span: "",
+            image: "",
+            temperaments: [],
         });
-        setErrors(
-            validate({
-                ...form,
-                [e.target.name]: e.target.value,
-            })
-        );
-    };
+    } catch (error) {
+        alert("Error adding dog: " + error.message);
+        console.error("Error adding dog:", error);
+    }
+};
+
+const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({
+        ...form,
+        [name]: value,
+    });
+    
+    setErrors({
+        ...errors,
+        [name]: validate({ ...form, [name]: value })[name],
+    });
+};
 
     const handleSelect = (e) => {
-        setForm({
-            ...form,
-            temperaments: [...form.temperaments, e.target.value],
-        });
+        const selectedTemperament = e.target.value;
+        if (!form.temperaments.includes(selectedTemperament)) {
+            setForm({
+                ...form,
+                temperaments: [...form.temperaments, selectedTemperament],
+            });
+        }
     };
 
     const handleDelete = (el) => {
@@ -137,7 +156,7 @@ export default function FormAddDog() {
                         />
                     </div>
                     <div className={style.error_form}>
-                        {errors.name && <p>{errors.name}</p>}
+                    {errors.name && <p>{errors.name}</p>}
                     </div>
 
                     <div className={style.height_container}>
@@ -149,6 +168,9 @@ export default function FormAddDog() {
                                 placeholder="Min height..."
                                 onChange={(e) => handleChange(e)}
                             />
+                            <div className={style.error_form}>
+            {errors.min_height && <p>{errors.min_height}</p>}
+        </div>
                         </div>
 
                         <div className={style.max_height}>
@@ -159,6 +181,9 @@ export default function FormAddDog() {
                                 placeholder="Max height..."
                                 onChange={(e) => handleChange(e)}
                             />
+                            <div className={style.error_form}>
+            {errors.max_height && <p>{errors.max_height}</p>}
+        </div>
                         </div>
                     </div>
                     <div className={style.error_form}>
@@ -174,6 +199,9 @@ export default function FormAddDog() {
                                 placeholder="Min weight..."
                                 onChange={(e) => handleChange(e)}
                             />
+                            <div className={style.error_form}>
+            {errors.min_weight && <p>{errors.min_weight}</p>}
+        </div>
                         </div>
 
                         <div className={style.max_weight}>
@@ -184,6 +212,9 @@ export default function FormAddDog() {
                                 placeholder="Max weight..."
                                 onChange={(e) => handleChange(e)}
                             />
+                             <div className={style.error_form}>
+            {errors.max_weight && <p>{errors.max_weight}</p>}
+        </div>
                         </div>
                     </div>
                     <div className={style.error_form}>
@@ -199,10 +230,11 @@ export default function FormAddDog() {
                             placeholder="lifespan exam: 10 - 12"
                             onChange={(e) => handleChange(e)}
                         />
+                         <div className={style.error_form}>
+        {errors.life_span && <p>{errors.life_span}</p>}
+    </div>
                     </div>
-                    <div className={style.error_form}>
-                        {errors.life_span && <p>{errors.life_span}</p>}
-                    </div>
+                   
                     
                     <div className="image-container">
                         <input
