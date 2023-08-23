@@ -56,6 +56,7 @@ function FilterBar() {
         <option disabled defaultValue>
           Filter by weight
         </option>
+        <option value="all_dogs">All</option>
         <option value="max_weight">Max</option>
         <option value="min_weight">Min</option>
       </select>
