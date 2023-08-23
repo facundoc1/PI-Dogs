@@ -58,11 +58,15 @@ const getFromDb = async () => {
 
 const mapDogs = (dogsFromDB) => {
     const temperamentArr = []
+    const weightArr = []
     const fixedTemperaments = dogsFromDB.map(dog => {
         temperamentArr.push(dog.temperaments.name)
+        weightArr.push(dog.weight_min)
+        weightArr.push(dog.weight_max)
         return {
             ...dog,
             temperaments: temperamentArr,
+            weight: weightArr,
         }
     });
     jsonObject = fixedTemperaments.map(JSON.stringify);

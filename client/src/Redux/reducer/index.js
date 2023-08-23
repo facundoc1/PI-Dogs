@@ -67,18 +67,23 @@ const rootReducer = (state = initialState, action) => {
         case "ORDER_BY_WEIGHT": //[2, 4] [6, 9] [12, 20]
             const sortedDogsByWeight = [...state.dogs];
             const xd = [...state.dogs];
-            sortedDogsByWeight.sort((a, b) => {                
+            sortedDogsByWeight.sort((a, b) => {
                 if (action.payload === "max_weight") {
-                    return b.weight.reduce((x,y) => x+y)/2 - a.weight.reduce((x,y) => x+y)/2;
+                    return (
+                        b.weight.reduce((x, y) => x + y) / 2 -
+                        a.weight.reduce((x, y) => x + y) / 2
+                    );
                 } else if (action.payload === "min_weight") {
-                    return a.weight.reduce((x,y) => x+y)/2 - b.weight.reduce((x,y) => x+y)/2;
+                    return (
+                        a.weight.reduce((x, y) => x + y) / 2 -
+                        b.weight.reduce((x, y) => x + y) / 2
+                    );
                 } else if (action.payload === "all_dogs") {
                     return xd;
                 } else {
                     return 0;
                 }
             });
-            console.log(sortedDogsByWeight);
             return {
                 ...state,
                 dogs: sortedDogsByWeight,

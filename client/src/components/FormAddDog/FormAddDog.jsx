@@ -11,18 +11,17 @@ export default function FormAddDog() {
     const temperaments = useSelector((state) => state.temperaments);
     const validate = (form) => {
         let errors = {};
-        if (!form.name) {
-            errors.name = "Name is required, it should not contain numbers";
+        if (!form.name || /\d/.test(form.name)) {
+            errors.name = "Name is required and should not contain numbers";
         }
-        if (!form.min_height || !form.max_height) {
-            errors.height = "Height is required";
+        if (!form.min_height || !form.max_height || !/^\d+$/.test(form.min_height) || !/^\d+$/.test(form.max_height)) {
+            errors.height = "Height is required and should be numbers only";
         }
-        if (!form.min_weight || !form.max_weight) {
-            errors.weight = "Weight is required";
+        if (!form.min_weight || !form.max_weight || !/^\d+$/.test(form.min_weight) || !/^\d+$/.test(form.max_weight)) {
+            errors.weight = "Weight is required and should be numbers only";
         }
-        if (!form.life_span) {
-            errors.life_span =
-                "Lifespan is required, type only numbers separated by a dash (-)";
+        if (!form.life_span || !/^\d+\s*-\s*\d+$/.test(form.life_span)) {
+            errors.life_span = "Lifespan is required, type only numbers separated by a dash (-)";
         }
         return errors;
     };
@@ -65,8 +64,18 @@ export default function FormAddDog() {
         else setButton(true);
     }, [form, setButton]);
 
+    useEffect(() => {
+        const validationErrors = validate(form);
+        setErrors(validationErrors);
+    }, [form]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (/\d/.test(form.name)) {
+            alert("Name cannot contain numbers");
+            return;
+        }
 
         if (parseInt(form.min_weight) > parseInt(form.max_weight)) {
             alert("Minimum weight cannot be greater than maximum weight");

@@ -37,9 +37,9 @@ function FilterBar() {
   const handleFilterCreated = (e) => {
     const value = e.target.value;
     if (value === "all") {
-      dispatch(getAllDogs()); // Mostrar tanto creados como de la base de datos
+      dispatch(getAllDogs()); 
     } else {
-      dispatch(filterCreated(value)); // Filtrar por origen (inDB o created)
+      dispatch(filterCreated(value));
     }
   };
 
