@@ -6,8 +6,6 @@ import { getTemperaments, postDog } from "../../redux/actions";
 
 import style from "../FormAddDog/FormAddDog.module.css";
 
-
-
 export default function FormAddDog() {
     const dispatch = useDispatch();
     const temperaments = useSelector((state) => state.temperaments);
@@ -67,54 +65,54 @@ export default function FormAddDog() {
         else setButton(true);
     }, [form, setButton]);
 
-   const handleSubmit = async (e) => {
-    e.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    if (parseInt(form.min_weight) > parseInt(form.max_weight)) {
-        alert("Minimum weight cannot be greater than maximum weight");
-        return;
-    }
+        if (parseInt(form.min_weight) > parseInt(form.max_weight)) {
+            alert("Minimum weight cannot be greater than maximum weight");
+            return;
+        }
 
-    if (parseInt(form.min_height) > parseInt(form.max_height)) {
-        alert("Minimum height cannot be greater than maximum height");
-        return;
-    }
-    if (form.temperaments.length === 0) { 
-        alert("At least one temperament must be selected");
-        return;
-      }
+        if (parseInt(form.min_height) > parseInt(form.max_height)) {
+            alert("Minimum height cannot be greater than maximum height");
+            return;
+        }
+        if (form.temperaments.length === 0) {
+            alert("At least one temperament must be selected");
+            return;
+        }
 
-    try {
-        await dispatch(postDog(form));
-        alert("The new dog was added successfully");
+        try {
+            await dispatch(postDog(form));
+            alert("The new dog was added successfully");
+            setForm({
+                name: "",
+                min_height: "",
+                max_height: "",
+                min_weight: "",
+                max_weight: "",
+                life_span: "",
+                image: "",
+                temperaments: [],
+            });
+        } catch (error) {
+            alert("Error adding dog: " + error.message);
+            console.error("Error adding dog:", error);
+        }
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
         setForm({
-            name: "",
-            min_height: "",
-            max_height: "",
-            min_weight: "",
-            max_weight: "",
-            life_span: "",
-            image: "",
-            temperaments: [],
+            ...form,
+            [name]: value,
         });
-    } catch (error) {
-        alert("Error adding dog: " + error.message);
-        console.error("Error adding dog:", error);
-    }
-};
 
-const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({
-        ...form,
-        [name]: value,
-    });
-    
-    setErrors({
-        ...errors,
-        [name]: validate({ ...form, [name]: value })[name],
-    });
-};
+        setErrors({
+            ...errors,
+            [name]: validate({ ...form, [name]: value })[name],
+        });
+    };
 
     const handleSelect = (e) => {
         const selectedTemperament = e.target.value;
@@ -156,7 +154,7 @@ const handleChange = (e) => {
                         />
                     </div>
                     <div className={style.error_form}>
-                    {errors.name && <p>{errors.name}</p>}
+                        {errors.name && <p>{errors.name}</p>}
                     </div>
 
                     <div className={style.height_container}>
@@ -169,8 +167,10 @@ const handleChange = (e) => {
                                 onChange={(e) => handleChange(e)}
                             />
                             <div className={style.error_form}>
-            {errors.min_height && <p>{errors.min_height}</p>}
-        </div>
+                                {errors.min_height && (
+                                    <p>{errors.min_height}</p>
+                                )}
+                            </div>
                         </div>
 
                         <div className={style.max_height}>
@@ -182,8 +182,10 @@ const handleChange = (e) => {
                                 onChange={(e) => handleChange(e)}
                             />
                             <div className={style.error_form}>
-            {errors.max_height && <p>{errors.max_height}</p>}
-        </div>
+                                {errors.max_height && (
+                                    <p>{errors.max_height}</p>
+                                )}
+                            </div>
                         </div>
                     </div>
                     <div className={style.error_form}>
@@ -200,8 +202,10 @@ const handleChange = (e) => {
                                 onChange={(e) => handleChange(e)}
                             />
                             <div className={style.error_form}>
-            {errors.min_weight && <p>{errors.min_weight}</p>}
-        </div>
+                                {errors.min_weight && (
+                                    <p>{errors.min_weight}</p>
+                                )}
+                            </div>
                         </div>
 
                         <div className={style.max_weight}>
@@ -212,9 +216,11 @@ const handleChange = (e) => {
                                 placeholder="Max weight..."
                                 onChange={(e) => handleChange(e)}
                             />
-                             <div className={style.error_form}>
-            {errors.max_weight && <p>{errors.max_weight}</p>}
-        </div>
+                            <div className={style.error_form}>
+                                {errors.max_weight && (
+                                    <p>{errors.max_weight}</p>
+                                )}
+                            </div>
                         </div>
                     </div>
                     <div className={style.error_form}>
@@ -230,12 +236,11 @@ const handleChange = (e) => {
                             placeholder="lifespan exam: 10 - 12"
                             onChange={(e) => handleChange(e)}
                         />
-                         <div className={style.error_form}>
-        {errors.life_span && <p>{errors.life_span}</p>}
-    </div>
+                        <div className={style.error_form}>
+                            {errors.life_span && <p>{errors.life_span}</p>}
+                        </div>
                     </div>
-                   
-                    
+
                     <div className="image-container">
                         <input
                             type="text"
@@ -264,7 +269,7 @@ const handleChange = (e) => {
                                     className={style.option_temperament}
                                 >
                                     {d.name}
-                                </option> 
+                                </option>
                             ))}
                         </select>
                     </div>
