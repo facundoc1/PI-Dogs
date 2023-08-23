@@ -44,15 +44,6 @@ const getApiData = async () => {
 //-- Get data from the database posgrest--//
 const getFromDb = async () => {
     return await Dog.findAll({
-        include: [{
-            model: Temperament,
-            attributes: ["name"],
-            through: {
-                attributes: [],
-            },
-        }],
-    });
-    /* const dogsFromDB = await Dog.findAll({
         raw: true,
         nest: true,
         include: [{
@@ -63,29 +54,33 @@ const getFromDb = async () => {
             },
         }],
     });
-    return dogsFromDB; */
 };
 
-/* const mapDogs = (dogsFromDB) => {
-    return dogsFromDB.map(dog => {
-        
+const mapDogs = (dogsFromDB) => {
+    const temperamentArr = []
+    const fixedTemperaments = dogsFromDB.map(dog => {
+        temperamentArr.push(dog.temperaments.name)
+        return {
+            ...dog,
+            temperaments: temperamentArr,
+        }
     });
-} */
+    jsonObject = fixedTemperaments.map(JSON.stringify);
+    uniqueSet = new Set(jsonObject);
+    uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+    return uniqueArray;
+}
 
-
-//combine data from API and databasere
 const getAllDogs = async () => {
     const dataFromApi = await getApiData();
-    const dataFromDb = await getFromDb();
-    //const dataCool = mapDogs(dataFromDb);
-    //dataCool.forEach(dog => console.log(dog));
+    let dataFromDb = await getFromDb();
+    dataFromDb = mapDogs(dataFromDb);
     const allDataMixed = [...dataFromApi, ...dataFromDb];
     return allDataMixed;
 };
 
 //--endpoints--//
 router.get("/dogs", async (req, res) => {
-    // const name = req.query.name;
     const { name } = req.query;
     const allDogs = await getAllDogs();
     if (name) {
